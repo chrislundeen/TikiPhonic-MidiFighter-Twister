@@ -1,0 +1,110 @@
+{
+    "title": "Configuration for MidiFighter Twister",
+    "version": "0.0.1",
+    "controller": {
+        "version": "2.15.0",
+        "groups": [
+            "Buttons",
+            "Encoders",
+            "Push Encoders"
+        ]
+    },
+    "objects": {
+        "controller": {
+            "kind": "ControllerCompartment",
+            "version": "",
+            "value": {
+                "defaultGroup": {},
+                "groups": [],
+                "mappings": [],
+                "customData": {
+                    "companion": {
+                        "controls": []
+                    }
+                }
+            }
+        },
+        "tactile": {
+            "base": {
+                "id": "",
+                "name": "",
+                "groupId": "",
+                "source": {
+                    "channel": 0,
+                    "number": 0,
+                    "is14Bit": false
+                },
+                "mode": {
+                    "maxStepSize": 0.05,
+                    "minStepFactor": 1,
+                    "maxStepFactor": 1
+                },
+                "target": {
+                    "category": "virtual",
+                    "fxAnchor": "id",
+                    "useSelectionGanging": false,
+                    "useTrackGrouping": false,
+                    "seekBehavior": "Immediate",
+                    "controlElementIndex": 0,
+                    "mouseAction": {
+                        "kind": "MoveTo",
+                        "axis": "Y"
+                    },
+                    "pollForFeedback": false,
+                    "takeMappingSnapshot": {
+                        "kind": "ById",
+                        "id": ""
+                    }
+                }
+            },
+            "button": {
+                "source": {
+                    "channel": 1,
+                    "is14Bit": false
+                }
+            },
+            "encoder": {
+                "source": { "channel": 0 },
+                "mode": { "type": 3 }
+            },
+            "pushencoder": {
+                "source": { "channel": 4 },
+                "mode": { "type": 3 }
+            }
+        },
+        "projection": {
+            "base": {
+                "id": "",
+                "width": 0,
+                "height": 0,
+                "labelOne": {
+                  "angle": 0,
+                  "position": "aboveTop",
+                  "sizeConstrained": true
+                },
+                "mappings": [],
+                "x": 0,
+                "y": 0
+            },
+            "button": {
+                "width": 130,
+                "height": 40,
+                "shape": "rectangle"
+            },
+            "encoder": {
+                "width": 80,
+                "height": 80,
+                "shape": "circle"
+            },
+            "pushencoder": {
+                "width": 80,
+                "height": 80,
+                "shape": "circle"
+            }
+        },
+        "group": {
+            "id": "g",
+            "name": ""
+        }
+    }
+}
