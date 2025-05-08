@@ -1,6 +1,6 @@
 import json
 import copy
-from jsonmerge import merge
+from helpers.merge_utils import deep_merge
 
 from helpers.helpers import setTabs
 
@@ -11,20 +11,20 @@ from definitions.tactile.button import buildButton
 from definitions.tactile.encoder import buildEncoder
 
 def buildTwisterController(config):
-    
+
     # json -----------------------------
     objController = config['objects']['controller']
     objController['version'] = config['controller']['version']
-    
+
     # add groups
     buildControllerGroups(config, objController)
-    
+
     # add mappings
     buildControllerMappings(config, objController)
-    
+
     # add projection controls
     buildProjectionControls(config, objController)
-    
+
     # write json output
     filename = 'output/_twister_controller.json'
 
@@ -32,7 +32,7 @@ def buildTwisterController(config):
     fileHandler.write(json.dumps(objController))
     fileHandler.close()
 
-def buildControllerGroups(config, objController):    
+def buildControllerGroups(config, objController):
     groupNum = 0
     for y in range(len(config['controller']['groups'])):
         group = config['objects']['group']
@@ -40,16 +40,16 @@ def buildControllerGroups(config, objController):
         group['name'] = config['controller']['groups'][y]
         objController['value']['groups'].append(copy.deepcopy(group))
         groupNum = groupNum + 1
-    
+
 def getTactileControllerTemplate(config, controllerType):
     baseTemplate = copy.deepcopy(config['objects']['tactile']['base'])
     controllerTemplate = copy.deepcopy(config['objects']['tactile'][controllerType])
-    return merge(baseTemplate, controllerTemplate)
+    return deep_merge(baseTemplate, controllerTemplate)
 
 def getProjectionControllerTemplate(config, controllerType):
     baseTemplate = copy.deepcopy(config['objects']['projection']['base'])
     controllerTemplate = copy.deepcopy(config['objects']['projection'][controllerType])
-    return merge(baseTemplate, controllerTemplate)
+    return deep_merge(baseTemplate, controllerTemplate)
 
 def buildControllerMappings(config, objController):
     controller_number = 0
@@ -60,7 +60,7 @@ def buildControllerMappings(config, objController):
                 disableFeedback = False
                 toggleButton = True
                 controllerCoordinates = '[' + str(bankNum) + '/' + str(rowNum) + '/' + str(colNum) + ']'
-                
+
                 if ( (rowNum == 4) and (colNum == 4) ):
                     # print(controllerCoordinates)
                     # disableFeedback = True
@@ -98,9 +98,9 @@ def buildControllerMappings(config, objController):
                 objController['value']['mappings'].append(copy.deepcopy(controlElement))
                 print(controllerCoordinates + ' ' + controlElement['id'] + ' doing ('+str(controller_number)+') ('+str(id)+')')
                 id = id + 1
-                
+
                 controller_number = controller_number + 1
-    
+
 
 def buildProjectionControls(config, objController):
     controller_number = 0
