@@ -179,3 +179,51 @@ def edge_case_config(complete_config):
     }
 
     return edge_config
+
+@pytest.fixture
+def midi_edge_case_config(complete_config):
+    """Create a configuration with MIDI-specific edge cases"""
+    # Make a copy of the complete config
+    midi_edge_config = copy.deepcopy(complete_config)
+
+    # Add MIDI edge cases
+
+    # 1. Controller with maximum MIDI channel (16)
+    midi_edge_config['objects']['tactile']['max_channel'] = {
+        "source": {
+            "channel": 16,  # MIDI channels typically range from 0-15 or 1-16
+            "is14Bit": False
+        }
+    }
+
+    # 2. Controller with maximum MIDI CC value (127)
+    midi_edge_config['objects']['tactile']['max_cc'] = {
+        "source": {
+            "channel": 1,
+            "number": 127,  # Maximum standard MIDI CC number
+            "is14Bit": False
+        }
+    }
+
+    # 3. Controller with 14-bit MIDI setting enabled
+    midi_edge_config['objects']['tactile']['fourteen_bit'] = {
+        "source": {
+            "channel": 1,
+            "number": 20,
+            "is14Bit": True  # Using 14-bit MIDI resolution
+        }
+    }
+
+    # 4. Controller with non-standard MIDI behavior
+    midi_edge_config['objects']['tactile']['non_standard'] = {
+        "source": {
+            "channel": 1,
+            "number": 64,
+            "behavior": "Toggle"  # Non-standard behavior type
+        },
+        "mode": {
+            "type": 7  # Non-standard mode type
+        }
+    }
+
+    return midi_edge_config
