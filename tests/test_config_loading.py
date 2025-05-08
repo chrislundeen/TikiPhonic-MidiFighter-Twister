@@ -119,8 +119,35 @@ def test_ensure_output_dir():
         ensure_output_dir(str(output_path))
         assert output_path.exists()
 
-def test_generate_configs_integration():
+def test_generate_configs_integration(complete_config, tmpdir):
     """Test the full config generation process"""
-    # This test is skipped because it requires a complete valid config with tactile templates
-    # In a real test, we would either mock the dependencies or use a fixture with a complete config
-    pytest.skip("Integration test requires complete valid config with tactile templates")
+    # Create a temporary config file with complete configuration
+    config_path = tmpdir / "test_config.json"
+    with open(config_path, 'w') as f:
+        json.dump(complete_config, f)
+
+    # Generate configs using the temporary config file
+    try:
+        generate_configs(config_path=str(config_path))
+
+        # Check that both output files were generated
+        controller_path = Path("output/_twister_controller.json")
+        main_path = Path("output/_twister_main.lua")
+
+        assert controller_path.exists(), "Controller JSON was not generated"
+        assert main_path.exists(), "Main Lua file was not generated"
+
+        # Basic validation of the generated files
+        with open(controller_path, 'r') as f:
+            controller = json.load(f)
+            assert "value" in controller, "Controller JSON missing 'value' key"
+            assert "mappings" in controller["value"], "Controller JSON missing 'mappings'"
+
+        with open(main_path, 'r') as f:
+            main_content = f.read()
+            assert len(main_content) > 0, "Main Lua file is empty"
+
+        # The test passes if both files were generated and have basic expected structure
+        assert True
+    except Exception as e:
+        assert False, f"Generate configs failed with exception: {e}"
