@@ -32,6 +32,20 @@ def backup_files():
         'main': backup_dir / "_twister_main.lua"
     }
 
+@pytest.fixture
+def performance_tracker():
+    """Create and return a performance tracker instance"""
+    try:
+        from helpers.performance_analyzer import PerformanceTracker
+        return PerformanceTracker()
+    except ImportError:
+        # If performance_analyzer is not available, create a stub object
+        class StubTracker:
+            def add_metric(self, *args, **kwargs): pass
+            def save_metrics(self, *args, **kwargs): return ""
+            def generate_report(self): return ""
+        return StubTracker()
+
 @pytest.fixture(autouse=True)
 def clean_output(output_dir):
     """Clean output files before each test"""

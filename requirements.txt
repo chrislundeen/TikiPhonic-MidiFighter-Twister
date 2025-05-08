@@ -1,3 +1,5 @@
 pytest==8.3.5
 pathlib==1.0.1
 deepdiff==6.7.1
+psutil==5.9.5
+jsonschema==4.17.3
