@@ -25,11 +25,11 @@ def output_dir():
 
 @pytest.fixture
 def backup_files():
-    """Get paths to reference backup files"""
-    backup_dir = Path("output/backup")
+    """Get paths to reference/mock files"""
+    mock_dir = Path("tests/mocks")
     return {
-        'controller': backup_dir / "_twister_controller.json",
-        'main': backup_dir / "_twister_main.lua"
+        'controller': mock_dir / "_twister_controller.json",
+        'main': mock_dir / "_twister_main.lua"
     }
 
 @pytest.fixture

@@ -231,4 +231,3 @@ def test_output_dir_creation(tmp_path):
 
     assert output_dir.exists()
     assert output_dir.is_dir()
-    assert (output_dir / "backup").exists()

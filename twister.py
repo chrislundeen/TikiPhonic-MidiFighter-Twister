@@ -16,8 +16,6 @@ class ConfigError(Exception):
 def ensure_output_dir(output_dir: str = "output") -> None:
     """Ensure output directory exists"""
     Path(output_dir).mkdir(exist_ok=True)
-    backup_dir = Path(output_dir) / "backup"
-    backup_dir.mkdir(exist_ok=True)
 
 def validate_controller_version(config: dict) -> None:
     """Validate controller version separately from schema validation"""

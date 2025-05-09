@@ -113,7 +113,6 @@ def test_ensure_output_dir():
 
         # Verify directories were created
         assert output_path.exists()
-        assert (output_path / "backup").exists()
 
         # Test idempotence (calling again shouldn't error)
         ensure_output_dir(str(output_path))

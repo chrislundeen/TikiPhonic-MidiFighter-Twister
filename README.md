@@ -74,7 +74,7 @@ The `config.json` file defines:
 - `_twister_controller.json`: Contains all controller mappings and configurations
 - `_twister_main.json`: Contains main program configuration
 - Lua scripts for advanced functionality
-- Backup files are automatically maintained in `output/backups/`
+- Reference files for validation are maintained in `tests/mocks/`
 
 ## Control Layout
 

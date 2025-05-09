@@ -24,7 +24,7 @@ This project generates configuration files for the Midi Fighter Twister controll
    - Controls are organized in a 4x4 grid with banks
 
 3. **Output Generation**
-   - Generated files must match reference files in `output/backup/`
+   - Generated files must match reference files in `tests/mocks/`
    - Use `validate_output.py` to verify generated output
 
 4. **Error Handling**
