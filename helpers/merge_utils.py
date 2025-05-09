@@ -2,8 +2,8 @@
 Utilities for merging JSON objects.
 This module provides a replacement for jsonmerge to avoid deprecation warnings.
 """
-import copy
 from typing import Any, Dict
+from helpers.optimize_deep_copy import optimized_deep_copy_dict
 
 def deep_merge(base: Dict[str, Any], schema: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -17,7 +17,7 @@ def deep_merge(base: Dict[str, Any], schema: Dict[str, Any]) -> Dict[str, Any]:
         A new dictionary containing the merged result
     """
     # Create a deep copy of the base to avoid modifying the original
-    merged = copy.deepcopy(base)
+    merged = optimized_deep_copy_dict(base)
 
     # Recursively merge schema into the merged dictionary
     for key, value in schema.items():
@@ -26,6 +26,6 @@ def deep_merge(base: Dict[str, Any], schema: Dict[str, Any]) -> Dict[str, Any]:
             merged[key] = deep_merge(merged[key], value)
         else:
             # Otherwise, just update the value
-            merged[key] = copy.deepcopy(value)
+            merged[key] = optimized_deep_copy_dict(value) if isinstance(value, dict) else value
 
     return merged
